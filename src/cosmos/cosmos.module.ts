@@ -4,6 +4,6 @@ import { CosmosController } from './cosmos.controller';
 
 @Module({
   providers: [CosmosService],
-  controllers: [CosmosController]
+  controllers: [CosmosController],
 })
 export class CosmosModule {}
