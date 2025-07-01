@@ -1,98 +1,93 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+Blockchain API
+A NestJS application providing APIs to fetch block and transaction data from EVM (Sei Network) and Cosmos-based blockchains.
+Features
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+EVM Endpoints:
+GET /evm/block/:height: Retrieves block details (height, hash, parentHash, gasLimit, gasUsed, size) by block height.
+GET /evm/transactions/:hash: Retrieves transaction details (hash, to, from, value, input, maxFeePerGas, maxPriorityFeePerGas, gasPrice) by transaction hash.
+GET /evm/recent-transaction: Fetches a recent transaction from the latest block.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+Cosmos Endpoints:
+GET /cosmos/block/:height: Retrieves block details (height, time, hash, proposedAddress) by block height.
+GET /cosmos/transactions/:hash: Retrieves transaction details (hash, height, time, gasUsed, gasWanted, fee, sender) by transaction hash.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Project setup
+Swagger UI for API documentation at /api.
 
-```bash
-$ npm install
-```
+Prerequisites
 
-## Compile and run the project
+Node.js (v16 or higher)
+npm
+Access to the following nodes:
+EVM: https://sei-evm-rpc.publicnode.com
+Cosmos RPC: https://sei-m.rpc.n0ok.net:443
+Cosmos gRPC: sei-grpc.polkachu.com:11990
 
-```bash
-# development
-$ npm run start
 
-# watch mode
-$ npm run start:dev
 
-# production mode
-$ npm run start:prod
-```
+Installation
 
-## Run tests
+Clone the repository:git clone <repository-url>
+cd blockchain-api
 
-```bash
-# unit tests
-$ npm run test
 
-# e2e tests
-$ npm run test:e2e
+Install dependencies:npm install
 
-# test coverage
-$ npm run test:cov
-```
 
-## Deployment
+Copy the sample environment file to .env:cp .env.sample .env
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+Ensure the .env file contains the correct RPC URLs (default values should work):EVM_RPC_URL=https://sei-evm-rpc.publicnode.com
+COSMOS_RPC_URL=https://sei-m.rpc.n0ok.net:443
+COSMOS_GRPC_URL=sei-grpc.polkachu.com:11990
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+Place the Cosmos gRPC proto files in node_modules/@grpc/proto-loader/cosmos/base/tendermint/v1beta1/query.proto (or adjust the path in cosmos.module.ts).
 
-## Resources
+Running the Application
 
-Check out a few resources that may come in handy when working with NestJS:
+Start the development server:npm run start:dev
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
 
-## Support
+The API will be available at http://localhost:3000.
+Access the Swagger UI at http://localhost:3000/api to explore and test endpoints.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Project Structure
 
-## Stay in touch
+src/app.module.ts: Root module.
+src/evm/: EVM-related module, controller, service, and DTOs.
+src/cosmos/: Cosmos-related module, controller, service, DTOs, and transaction decoder.
+src/exception.filter.ts: Global error handling filter.
+src/main.ts: Application bootstrap with Swagger setup.
+.env.sample: Template for environment variables.
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+API Usage
 
-## License
+EVM Block: GET /evm/block/0x1 (replace 0x1 with a valid hex block number).
+EVM Transaction: GET /evm/transactions/0xD70952032620CC4E2737EB8AC379806359D8E0B17B0488F627997A0B043ABDED (use a valid transaction hash).
+Cosmos Block: GET /cosmos/block/123456 (replace 123456 with a valid block height).
+Cosmos Transaction: GET /cosmos/transactions/D70952032620CC4E2737EB8AC379806359D8E0B17B0488F627997A0B043ABDED (use a valid transaction hash, with or without 0x).
+Recent Transaction: GET /evm/recent-transaction to fetch a transaction from the latest block.
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Dependencies
+
+@nestjs/core, @nestjs/common, @nestjs/axios, @nestjs/config, @nestjs/microservices, @nestjs/swagger
+rxjs, class-validator, class-transformer, swagger-ui-express
+@cosmjs/stargate, @cosmjs/tendermint-rpc, @cosmjs/encoding, @cosmjs/proto-signing
+@grpc/proto-loader
+
+Install them with:
+npm install @nestjs/core @nestjs/common @nestjs/axios @nestjs/config @nestjs/microservices @nestjs/swagger rxjs class-validator class-transformer swagger-ui-express @cosmjs/stargate @cosmjs/tendermint-rpc @cosmjs/encoding @cosmjs/proto-signing @grpc/proto-loader
+
+Error Handling
+
+Invalid inputs return HTTP 400 with a descriptive message.
+Non-existent blocks or transactions return HTTP 404.
+Internal errors return HTTP 500 with a timestamp and message.
+
+Notes
+
+Ensure the RPC and gRPC endpoints are accessible.
+The Cosmos transaction endpoint accepts hashes with or without 0x prefix.
+Use the Swagger UI for testing and documentation.
