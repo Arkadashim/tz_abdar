@@ -26,8 +26,8 @@ A NestJS application providing APIs to fetch block and transaction data from EVM
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
-   cd blockchain-api
+   git clone https://github.com/Arkadashim/tz_abdar.git
+   cd tz_abdar
    ```
 
 2. Install dependencies:
