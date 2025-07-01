@@ -98,9 +98,7 @@ export class CosmosService implements OnModuleInit, OnModuleDestroy {
       gasUsed: response.result.gasUsed,
       gasWanted: response.result.gasWanted,
       fee: txDecoded.authInfo.fee?.amount || [],
-      sender: txDecoded.authInfo?.signerInfos?.[0]?.publicKey?.['address']
-        ? toBech32('cosmos', senderAddress)
-        : '',
+      sender: senderAddress ? toBech32('cosmos', senderAddress) : '',
     };
   }
 
