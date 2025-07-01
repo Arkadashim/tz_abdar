@@ -13,7 +13,5 @@ import configuration from './config/configuration';
     EvmModule,
     CosmosModule,
   ],
-  controllers: [],
-  providers: [],
 })
 export class AppModule {}
