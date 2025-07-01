@@ -1,0 +1,1 @@
+select * from test_txs where block_height in (select distinct block_height from test_txs order by block_height DESC limit 1);
