@@ -11,7 +11,7 @@ A NestJS application providing APIs to fetch block and transaction data from EVM
 - **Cosmos Endpoints**:
   - `GET /cosmos/block/:height`: Retrieves block details (`height`, `time`, `hash`, `proposedAddress`) by block height.
   - `GET /cosmos/transactions/:hash`: Retrieves transaction details (`hash`, `height`, `time`, `gasUsed`, `gasWanted`, `fee`, `sender`) by transaction hash.
-- Swagger UI for API documentation at `/api`.
+- Swagger UI for API documentation at `/docs`.
 
 ## Prerequisites
 
