@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
+import { EvmModule } from './evm/evm.module';
 
 @Module({
-  imports: [],
+  imports: [EvmModule],
   controllers: [],
   providers: [],
 })
