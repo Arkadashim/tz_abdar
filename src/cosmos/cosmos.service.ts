@@ -1,6 +1,5 @@
-import { toBech32, toHex, fromHex } from '@cosmjs/encoding';
+import { fromHex, toBech32, toHex } from '@cosmjs/encoding';
 import { decodeTxRaw } from '@cosmjs/proto-signing';
-import { StargateClient } from '@cosmjs/stargate';
 import { Tendermint37Client } from '@cosmjs/tendermint-rpc';
 import {
   Inject,
@@ -18,7 +17,6 @@ export class CosmosService implements OnModuleInit, OnModuleDestroy {
 
   private readonly logger = new Logger(CosmosService.name);
   private rpcEndpoint?: string;
-  private stargateClient: StargateClient;
   private tendermintClient: Tendermint37Client;
 
   async onModuleInit() {
@@ -28,11 +26,9 @@ export class CosmosService implements OnModuleInit, OnModuleDestroy {
         throw new Error(`Rpc endpoint not found`);
       }
 
-      [this.stargateClient, this.tendermintClient] = await Promise.all([
-        StargateClient.connect(this.rpcEndpoint),
-        Tendermint37Client.connect(this.rpcEndpoint),
-      ]);
-
+      this.tendermintClient = await Tendermint37Client.connect(
+        this.rpcEndpoint,
+      );
       this.logger.log('Connected to Cosmos node ' + this.rpcEndpoint);
     } catch (error) {
       this.logger.error('Failed to connect to Cosmos node:', error.message);
@@ -41,10 +37,6 @@ export class CosmosService implements OnModuleInit, OnModuleDestroy {
   }
 
   onModuleDestroy() {
-    if (this.stargateClient) {
-      this.stargateClient.disconnect();
-    }
-
     if (this.tendermintClient) {
       this.tendermintClient.disconnect();
     }
