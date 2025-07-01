@@ -1,4 +1,4 @@
-# Blockchain API
+# TZ_AbDar
 
 A NestJS application providing APIs to fetch block and transaction data from EVM (Sei Network) and Cosmos-based blockchains.
 
