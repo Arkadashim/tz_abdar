@@ -1,9 +1,18 @@
 import { Module } from '@nestjs/common';
-import { EvmModule } from './evm/evm.module';
+import { ConfigModule } from '@nestjs/config';
 import { CosmosModule } from './cosmos/cosmos.module';
+import { EvmModule } from './evm/evm.module';
+import configuration from './config/configuration';
 
 @Module({
-  imports: [EvmModule, CosmosModule],
+  imports: [
+    ConfigModule.forRoot({
+      load: [configuration],
+      isGlobal: true,
+    }),
+    EvmModule,
+    CosmosModule,
+  ],
   controllers: [],
   providers: [],
 })
